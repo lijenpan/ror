@@ -1,0 +1,11 @@
+development:
+  adapter: mysql2
+  database: test
+  username: root
+  password: luvwave
+
+test:
+  adapter: mysql2
+  database: test
+  username: root
+  password: luvwave
