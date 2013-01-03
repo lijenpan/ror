@@ -1,0 +1,23 @@
+%table.table.table-bordered.table-condensed
+  %thead
+    %tr
+      %td Subject
+      %td Severity
+      %td Submitted by
+      %td Created at
+  %tbody
+    - @bugs.asc(:severity).each do |b|
+      %tr
+        %td= link_to b.subject, bug_path(b)
+        - if b.severity == 0
+          %td Critical
+        - elsif b.severity == 1
+          %td High
+        - elsif b.severity == 2
+          %td Moderate
+        - else
+          %td Low
+        %td= User.find(b.submit_by).name
+        %td= b.created_at.strftime('%m/%d/%Y at %I:%M%p')
+        - if can? :destroy, b
+          %td= link_to 'remove', bug_path(b), :method => :delete, :confirm => t(:are_you_sure)

@@ -1,0 +1,17 @@
+.row
+  .span10.offset1.search-result
+    .row
+      .span
+        %h3= link_to result.name, retailer_path(result)
+      .span.right.text-right
+        %h5= "collected by: #{(result.initiated_by.try(:name) || "not available")}"
+        %h5= "collected on: #{result.updated_at.strftime('%Y-%m-%d %H:%M:%S')}"
+    %br
+    .row
+      .span
+        %span.bold primary sector:
+        %span= result.primary_sector.titleize
+    .row
+      .span
+        %span.bold sectors:
+        = result.sectors.map(&:titleize).join(", ")

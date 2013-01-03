@@ -1,0 +1,60 @@
+- content_for(:title, @shopping_center.name.titleize)
+
+.page-header
+  - if @shopping_center.url.nil?
+    %h1= @shopping_center.name.titleize
+  - else
+    %h1= link_to @shopping_center.name.titleize, @shopping_center.url
+  %h6= single_line_address(@shopping_center.address)
+
+.section
+  %h2 Tenants
+  - if @shopping_center.tenants.empty?
+    %h3.indent There are no tenants listed.
+  - else
+    %table.table.table-striped.table-bordered.dataTable
+      %thead
+        %tr
+          %th name
+          %th anchor
+      %tbody
+        - @shopping_center.tenants.each do |t|
+          %tr
+            %td= t.name
+            %td= (t.is_anchor ? "Yes" : "No")
+
+.section
+  %h2 Equity Owners
+  - if @shopping_center.equity_owners.empty?
+    %h3.indent There are no equity owners.
+  - else
+    %ul.none
+      %li
+        %table.table.table-condensed.table-bordered
+          %thead
+            %tr
+              %th name
+              %th ownership stake
+          %tbody
+            - @shopping_center.equity_owners.each do |eo|
+              %tr
+                %td= eo.name
+                %td= number_to_percentage(eo.ownership, :precision => 2)
+
+.section
+  %h2 Documents
+  - if @shopping_center.assets.empty?
+    %h3.indent There are no assets associated with this shopping center.
+  - else
+    %ul.none
+      %li
+        %table.table.table-condensed.table-bordered
+          %thead
+            %tr
+              %th file
+              %th date added
+          %tbody
+            - @shopping_center.assets.each do |asset|
+              %tr
+                %td= link_to asset.attachment_file_name, asset.attachment.url
+                %td= asset.attachment_updated_at.strftime("%Y-%m-%d")

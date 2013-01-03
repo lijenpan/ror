@@ -1,0 +1,33 @@
+- content_for :content do
+  .row
+    .span9
+      = yield
+    .span3
+      #state-machine= render :partial => 'shared/state_machine_dialog', :locals => { :object => @shopping_center}
+
+  -# look at making this a can can ability instead of checking action
+  - if params[:action] == 'show'
+    .row.shopping-center-footer
+      .well
+        .pilled-content
+          %ul.nav.nav-pills
+            %li.active= link_to "Comments (#{@shopping_center.comments.count})", '#comments', 'data-section-id' => 'comments'
+            %li= link_to 'Revision History', '#revisions', 'data-section-id' => 'revisions'
+            %li= link_to 'Keywords', '#keywords', 'data-section-id' => 'keywords'
+
+          %ul.items
+            %li#comments
+              %ul
+                = render(:partial => 'comments/show', :collection => @shopping_center.comments, :as => :comment, :locals => { :commentable => @shopping_center }) || "There are no comments."
+                %li= render :partial => 'comments/new', :locals => { :commentable => @shopping_center }
+
+            %li#revisions
+              %ul.none
+                = render(:partial => 'shared/snapshot_list_item', :collection => @history_tracks, :as => :track, :locals => { :object => @shopping_center }) || "There is no recorded history."
+
+            %li#keywords
+              %ul.none
+                - @shopping_center.keywords.split(' ').each do |k|
+                  %li= k
+
+= render(:template => 'layouts/application')

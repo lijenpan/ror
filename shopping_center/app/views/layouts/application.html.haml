@@ -1,0 +1,18 @@
+!!!
+%html
+  %head
+    %title= yield(:title) || "ShoppingCenter"
+    = stylesheet_link_tag    *load_stylesheets
+    = javascript_include_tag *load_javascripts
+    = yield(:head)
+    = csrf_meta_tags
+  %body
+    %header
+      = render "shared/header"
+    .container
+      = render "shared/notifications" unless flash.empty?
+    #content.container
+      = content_for?(:content) ? yield(:content) : yield
+    %footer.span12
+      = render "shared/footer"
+    =yield(:scripts)

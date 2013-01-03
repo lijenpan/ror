@@ -1,0 +1,10 @@
+%li
+  .comment
+    .comment-header
+      .left
+        %strong= User.find(@message.author).name
+        posted
+      %em.right= "#{time_ago_in_words(@message.created_at)} ago"
+      .clear
+    .comment-body
+      = @message.body

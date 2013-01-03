@@ -1,0 +1,24 @@
+- content_for(:title, t(:home))
+
+=render "pm_messages"
+
+.page-header
+  %h1= t(:quick_access)
+
+- if current_user.is? :researcher
+  %h3= t(:researcher)
+  %ul
+    %li= link_to t(:add_shopping_center), new_shopping_center_path
+    %li= link_to t(:researcher_dashboard), researcher_dashboard_path
+- elsif current_user.is? :product_manager
+  %h3= t(:product_manager)
+  %ul
+    %li= link_to 'Post Message', new_message_path
+    %li= link_to t(:product_manager_dashboard), product_manager_dashboard_path
+- elsif current_user.is? :research_manager
+  %h3 Research Manager
+  %ul
+    %li= link_to t(:research_manager_dashboard), research_manager_dashboard_path
+
+Can't find what you are looking for? Try our
+= link_to "FAQ", faq_path

@@ -1,0 +1,10 @@
+- unless @pm_messages.empty?
+  .page-header
+    %h1= t(:pm_messages)
+  - @pm_messages.each do |m|
+    %blockquote.alert.alert-info
+      %p= m.body
+      %small
+        %cite= "#{User.find(m.author).name.titleize}, #{t(:ago, :time => time_ago_in_words(m.created_at))}"
+      - if can? :delete, m
+        = link_to t(:delete_post), message_path(m), :method => :delete, :confirm => t(:are_you_sure)

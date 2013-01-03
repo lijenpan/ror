@@ -1,0 +1,8 @@
+development: &development
+  HEROKU_APP: "pps-ShoppingCenter"
+  HEROKU_USER: "pps_production@pps.com"
+  HEROKU_PASSWORD: "ppsipo1!"
+test:
+  <<: *development
+production:
+  <<: *development

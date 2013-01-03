@@ -1,0 +1,21 @@
+.well
+  %h2 Research Manager Stats
+
+  %table.table.table-condensed.table-bordered
+    %thead
+      %tr
+        %th name
+        %th 7 days
+        %th 14 days
+        %th 30 days
+        %th still verifying
+        %th avg collection time
+    %tbody
+      - @research_managers.each do |r|
+        %tr
+          %td= "#{r.first_name} #{r.last_name}"
+          %td= r.stats 7
+          %td= r.stats 14
+          %td= r.stats 30
+          %td= r.still_verifying
+          %td= r.avg_time_per_shopping_center.duration unless r.avg_time_per_shopping_center.nil?

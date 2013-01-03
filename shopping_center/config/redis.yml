@@ -1,0 +1,18 @@
+defaults: &defaults
+  host: localhost
+  port: 6379
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+staging:
+  <<: *defaults
+
+production:
+  host: "chubb.redistogo.com"
+  port: 9407
+  user: "redistogo"
+  password: "3eb5722b351d627a634fc2ad97942d9d"

@@ -1,0 +1,20 @@
+.row
+  .span10.offset1.search-result
+    .row
+      .span
+        %h3= link_to result.name, shopping_center_path(result)
+        %h6= single_line_address result.address
+      .span.right.text-right
+        %h5= "collected by: #{(result.researcher.try(:name) || "not available")}"
+        %h5= "confirmed by: #{(result.research_manager.try(:name) || "not available")}"
+    %br
+    .row
+      .span
+        %span.bold Tenants:
+        = result.tenants.collect(&:name).map(&:titleize).join(", ")
+      - if !result.assets.nil? && result.assets.count > 0
+        .span.right
+          .bold.text-right.underline Documents
+          %ul.none
+            - result.assets.each do |a|
+              %li= link_to a.attachment_file_name, a.attachment.url

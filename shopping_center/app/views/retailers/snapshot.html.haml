@@ -1,0 +1,43 @@
+- content_for(:title, @snapshot.name.titleize)
+
+.page-header
+  %h1
+    = link_to @snapshot.name.titleize, @snapshotable
+    %small= "as of #{@snapshot.created_at.strftime("%Y-%m-%d %H:%M:%S")}"
+
+.well
+  %h1= @snapshot.name.titleize
+
+  %br
+  %h2 General Information
+  %ul.none
+    %li
+      %table.table.table-condensed.table-bordered
+        %tbody
+          %tr
+            %td.bold Parent Company
+            %td= @snapshot.company
+          %tr
+            %td.bold Primary Sector
+            %td= @snapshot.primary_sector
+          %tr
+            %td.bold Sectors
+            %td= @snapshot.sectors.join ','
+          %tr
+            %td.bold Generated
+            %td= @snapshot.generated
+          %tr
+            %td.bold Store Count
+            %td= @snapshot.store_count
+
+  %h2 Collection Information
+  %ul.none
+    %li
+      %table.table.table-condensed.table-bordered
+        %tbody
+          %tr
+            %td.bold Initiated On
+            %td= @snapshot.initiated
+          %tr
+            %td.bold Updated On
+            %td= @snapshot.updated_at

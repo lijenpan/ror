@@ -1,0 +1,39 @@
+#state-machine {
+  .section {
+    position: relative;
+    width: 100%;
+    padding-bottom: 30px;
+
+    .section-header {
+    }
+
+    .section-body {
+      a {
+        display: block;
+      }
+    }
+  }
+}
+
+.shopping-center-footer {
+  padding-top: 20px;
+}
+
+ul.items {
+  list-style-type: none;
+
+  li#audit {
+    ul {
+      list-style-type: none;
+    }
+  }
+
+  li#revisions {
+    ul {
+      list-style-type: none;
+
+      li.history-track {
+      }
+    }
+  }
+}

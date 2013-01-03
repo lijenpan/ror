@@ -1,0 +1,24 @@
+%table.table.table-bordered.table-condensed
+  %thead
+    %tr
+      %th name
+      %th id
+      %th email
+      %th role
+  %tbody
+    - @users.each do |r|
+      %tr
+        - if can? :update, r
+          %td= link_to "#{r.first_name} #{r.last_name}", edit_user_path(r)
+        - else
+          %td= "#{r.first_name} #{r.last_name}"
+        %td= r._id
+        %td= r.email
+        %td= r.role
+        -# - if can? :destroy, r
+        -#   %td= link_to 'remove', user_path(r), :method => :delete, :confirm => t(:are_you_sure)
+        -# - if can? :update, r
+        -#   %td= link_to 'edit', edit_user_path(r)
+
+-# - if current_user.is? :product_manager
+-#   = button_to 'Add User', new_user_path, :method => :get, :class => 'btn btn-primary'

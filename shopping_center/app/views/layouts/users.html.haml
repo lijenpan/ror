@@ -1,0 +1,16 @@
+- content_for(:title, @user.name.downcase)
+
+- content_for(:content) do
+  .page-header
+    .left
+      %h1= @user.name.titleize
+      %h6= "#{@user.email}, #{@user.role}"
+    .right
+      - if can? :edit, @user
+        = link_to send("edit_#{@user.role.to_s}_path", @user), :class => 'btn btn-inverse' do
+          %i.icon-edit.icon-white
+          edit
+    .clear
+
+  = yield
+= render(:template => 'layouts/application')

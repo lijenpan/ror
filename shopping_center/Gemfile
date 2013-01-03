@@ -1,0 +1,61 @@
+source 'https://rubygems.org'
+
+gem 'rails', '3.2.0'
+
+# Bundle edge Rails instead:
+
+# Gems used only for assets and not required
+# in production environments by default.
+  gem 'less-rails-bootstrap'
+group :assets do
+  gem 'sass-rails',   '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
+  gem 'uglifier', '>= 1.0.3'
+
+  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+  gem 'therubyracer'
+end
+
+gem 'jquery-rails'
+
+group :development do
+  gem 'rspec'
+  gem 'rspec-rails'
+  gem 'nifty-generators'
+end
+
+group :test do
+  gem 'rspec'
+  gem 'rspec-rails'
+  gem 'database_cleaner'
+  gem 'mongoid-rspec'
+  gem 'shoulda-matchers'
+  gem 'factory_girl'
+  gem 'cucumber-rails'
+  gem 'capybara'
+  gem 'launchy'
+end
+
+gem 'haml'
+gem 'bson_ext'
+gem 'mongoid'
+gem 'devise'
+gem 'cancan'
+gem 'state_machine'
+gem 'mongoid-history'
+gem 'mongoid-paperclip', :require => 'mongoid_paperclip'
+gem 'mongoid_fulltext'
+gem 'kaminari'
+gem 'thin'
+gem 'aws-sdk'
+gem 'newrelic_rpm'
+gem 'best_in_place'
+gem 'mechanize'
+gem 'htmldiff'
+gem 'sanitize'
+gem 'resque', :require => 'resque/server', :git => 'https://github.com/defunkt/resque.git'
+gem 'resque-scheduler', :require => 'resque_scheduler', :git => 'git://github.com/bvandenbos/resque-scheduler.git'
+gem 'resque-retry'
+gem 'mongoid_slug'
+gem 'heroku'
+gem 'writeexcel'

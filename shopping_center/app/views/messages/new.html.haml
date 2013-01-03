@@ -1,0 +1,8 @@
+- content_for(:title, 'Post a message')
+
+.page-header
+  %h1 Post a message
+= form_for @message do |f|
+  = f.text_area :body, :placeholder => 'begin message here...', :style => "width:99%"
+  %br
+  = f.submit "Create Message", :class => "btn btn-primary"

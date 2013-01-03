@@ -1,0 +1,31 @@
+%h3= t(:user_list)
+%table.table.table-bordered.table-condensed
+  %thead
+    %tr
+      %th= t(:name)
+      %th= t(:id)
+      %th= t(:email)
+      %th= t(:role)
+  %tbody
+    - @users.each do |r|
+      %tr
+        - if can? :update, r
+          %td= link_to "#{r.first_name} #{r.last_name}", user_path(r)
+        - else
+          %td= "#{r.first_name} #{r.last_name}"
+        %td= r._id
+        %td= r.email
+        %td= r.role
+        - if can? :update, r
+          %td= link_to t(:edit), send("edit_#{r.role}_path", r)
+        - if can? :destroy, r
+          %td= link_to t(:remove), user_path(r), :method => :delete, :confirm => t(:are_you_sure)
+        - if can? :become, r
+          %td= link_to t(:become), become_user_path(r)
+        - if can? :unlock, r and !r.unlock_token.nil?
+          %td= link_to t(:unlock), "/users/unlock?unlock_token=#{r.unlock_token}"
+        - else
+          %td= t(:unlock)
+
+- if current_user.is? :admin
+  = button_to t(:add_user), new_user_path, :method => :get, :class => 'btn btn-primary'

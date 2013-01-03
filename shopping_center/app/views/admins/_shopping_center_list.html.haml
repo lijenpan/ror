@@ -1,0 +1,16 @@
+%table.table.table-striped.table-condensed.table-bordered.dataTable
+  %thead
+    %tr
+      %th name
+      %th municipality
+      %th governing district
+      %th number of tenants (including anchors)
+      %th primary equity owner
+  %tbody
+    - @shopping_centers.each do |sc|
+      %tr
+        %td= link_to sc.name, shopping_center_path(sc)
+        %td= sc.address.municipality
+        %td= sc.address.governing_district
+        %td= sc.anchor_tenants.count + sc.tenants.count
+        %td= sc.equity_owners.first.name if !sc.equity_owners.first.nil?

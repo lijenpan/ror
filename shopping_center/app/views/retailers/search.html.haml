@@ -1,0 +1,14 @@
+- content_for(:title, 'Retailer Search')
+
+.row{:class => ("mid" if @results.count == 0)}
+  .span10.offset1
+    = form_tag search_retailers_path, :method => :get, :class => 'form-search' do
+      = text_field_tag 'q', @query, :placeholder  => 'Search...', :class => 'input-xlarge search-query'
+      %input{ :type => 'submit', :class => 'btn btn-primary', :value => 'Submit'}
+    %h6= "#{@results.count} records found"
+
+= render :partial => 'search_result', :collection => @results, :as => :result
+
+.row
+  .span10.offset1
+    .pagination-right= paginate @results

@@ -1,0 +1,34 @@
+= form_for @research_group, :html => {:multipart => true, :class => 'form-horizontal', :id => 'research-group-form'} do |f|
+  - if @research_group.errors.any?
+    .notifications
+      - @research_group.errors.each do |name, msg|
+        %div.alert.fade.in{"data-alert" => "alert", :class => to_twitter_type(:error)}
+          %a.close{"data-dismiss" => "alert", :href => "#"} x
+          = "#{name} #{msg}"
+  .well
+    %fieldset
+      %legend Research Group Information
+      .control-group
+        = f.label :name, :class => 'control-label'
+        .controls
+          = f.text_field :name
+
+  .well
+    %fieldset
+      %legend Assign Research Manager
+      = f.select :research_manager, options_from_collection_for_select(ResearchManager.all, :id, :name, @research_group.research_manager.object_id)
+
+  .well
+    %fieldset
+      %legend Assign Researchers
+      - User.all.each do |user|
+        - if user.is? :researcher
+          - if @research_group.researchers.include? user
+            = check_box_tag 'researchers[]', user.id, true
+          - else
+            = check_box_tag 'researchers[]', user.id, false
+          = user.name
+          %br
+
+  = f.submit "Submit Changes", :class => "btn btn-primary"
+  = f.submit "Cancel", :class => "btn"

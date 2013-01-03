@@ -1,0 +1,25 @@
+body {
+  padding-top: 40px;
+}
+
+.well { background-color: #F0F0F0; }
+.notifications {
+  text-align: center;
+  margin: 0px auto;
+  padding: 40px 0px 10px 0px;
+}
+
+.bold { font-weight: bold; }
+.italic { font-style: italic; }
+
+.left { float: left; }
+.right { float: right; }
+.clear { clear: both; }
+ul.none { list-style-type: none; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.hidden { display: none; }
+.underline { text-decoration: underline; }
+.indent { padding-left: 19px; }
+.section { margin: 18px 0px; }
+.tab-pane { padding: 0px 19px; }

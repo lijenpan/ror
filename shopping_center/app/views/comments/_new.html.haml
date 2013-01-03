@@ -1,0 +1,8 @@
+.comment
+  %h2= t(:add_new_comment)
+  = form_for [commentable, Comment.new] do |f|
+    = f.text_area :body, :placeholder => t(:begin_comment_here)
+    = hidden_field :comment, :author, {:value => current_user.id}
+    %br
+    = f.submit
+

@@ -1,0 +1,22 @@
+.section
+  - if current_user.researchers.empty?
+    %h3 There is no information associated with the researchers of this Research Group.
+  - else
+    - current_user.researchers.each do |r|
+      %hr
+        %h4= link_to r.name, r
+        %ul.none
+          - unless r.coverage_lists.empty?
+            %li
+              %h5 Assigned Coverage Lists
+              %table.table.table-bordered.table-condensed
+                %thead
+                  %th coverage list
+                  %th # of policies
+                  %th delinquent tasks
+                %tbody
+                  - r.coverage_lists.each do |cl|
+                    %tr
+                      %td= link_to cl.name, cl
+                      %td= cl.policies.count
+                      %td= "###"

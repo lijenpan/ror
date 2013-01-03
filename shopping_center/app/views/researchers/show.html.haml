@@ -1,0 +1,92 @@
+.section
+  %h2 General Information
+  %ul.none
+    %li
+      %table.table.table-condensed.table-bordered
+        %tbody
+          - if not @user.research_group.nil?
+            %tr
+              %td.bold Research Group
+              %td= @user.research_group.name
+              -# %td= link_to @user.research_group.name, @user.research_group
+          - if @user.has_manager?
+            %tr
+              %td.bold Manager
+              %td= link_to_if(@user.has_manager?, @user.manager.name, @user.manager)
+          - if @user.has_collection_type?
+            %tr
+              %td.bold Collection Type
+              %td= @user.collection_type.name
+          %tr
+            %td.bold Created On
+            %td= @user.created_at.strftime("%Y-%m-%d")
+
+.section
+  .tabbable
+    %ul.nav.nav-tabs
+      %li.active= link_to 'Tasks', '#tasks', 'data-toggle' => 'tab'
+      %li= link_to 'Shopping Centers', '#shopping-centers', 'data-toggle' => 'tab'
+      %li= link_to 'Retailers', '#retailers', 'data-toggle' => 'tab'
+
+    .tab-content
+      .tab-pane.active#tasks
+        - if @tasks.empty?
+          %h3.indent No tasks assigned or created.
+        - else
+          %h3 Tasks
+          %table.table.table-bordered.table-condensed
+            %thead
+              %tr
+                %th title
+                %th description
+                %th created by
+                %th assigned to
+            %tbody
+              - @tasks.sort{|m,n| n.created_at <=> m.created_at}.each do |wi|
+                %tr
+                  %td= link_to wi.title, wi
+                  %td= truncate(wi.description, length: 40, separator: ' ')
+                  %td= wi.creator.name
+                  %td= wi.assignee.try(:name) || "Unavailable"
+
+      .tab-pane#shopping-centers
+        .section
+          - if @shopping_centers.empty?
+            %h3 User has no shopping center activity.
+          - else
+            %h3 Shopping Centers
+            %table.table.table-bordered.table-condensed
+              %thead
+                %tr
+                  %th shopping center name
+                  %th municipality
+                  %th governing district
+                  %th state
+              %tbody
+                - @shopping_centers.each do |sc|
+                  %tr
+                    %td= link_to sc.name, sc
+                    %td= sc.address.municipality
+                    %td= sc.address.governing_district
+                    %td= sc.state.humanize.titleize
+
+      .tab-pane#retailers
+        .section
+          - if @retailers.empty?
+            %h3 User has never collected any retailers.
+          - else
+            %h3 Retailers
+            %table.table.table-bordered.table-condensed
+              %thead
+                %tr
+                  %th retailer name
+                  %th primary sector
+                  %th coverage initiated
+                  %th store count
+              %tbody
+                - @retailers.each do |r|
+                  %tr
+                    %td= link_to r.name, r
+                    %td= r.primary_sector
+                    %td= r.initiated.strftime("%Y-%m-%d")
+                    %td= r.store_count

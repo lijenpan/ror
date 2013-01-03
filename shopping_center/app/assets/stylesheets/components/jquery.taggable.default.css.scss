@@ -1,0 +1,21 @@
+.tags {
+  ul {
+    list-style-type: none;
+    margin: 10px 0;
+
+    li.tag {
+      color: #fff;
+      padding: 5px 5px;
+      margin: 5px 5px;
+      float: left;
+      background: #08c;
+
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+
+      a { color: #fff }
+      a.tag-text { }
+      a.tag-remover { }
+    }
+  }
+}

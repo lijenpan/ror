@@ -1,0 +1,18 @@
+= form_for [@coverage_list, @coverage_policy], :html => {:class => 'form-horizontal', :id => 'coverage-policy-form'} do |f|
+  - if @coverage_policy.errors.any?
+    .notifications
+      - @coverage_policy.errors.each do |name, msg|
+        %div.alert.fade.in{ "data-alert" => "alert", :class => to_twitter_type(:error) }
+          %a.close{ "data-dismiss" => "alert", :href => "#" } x
+          = "#{name} #{msg}"
+
+  .well
+    %fieldset
+      %legend= t(:basic_information)
+      .control-group
+        = f.label :retailer, :class => 'control-label'
+        .controls
+          = f.collection_select :retailer_id, available_retailers, :id, :name, :prompt => t(:select_retailer), :class => 'retailer-select'
+      = bootstrapped_field(f, @coverage_policy, :number_field, :expiration_duration)
+
+  = f.submit t(:submit_changes), :class => "btn btn-primary"

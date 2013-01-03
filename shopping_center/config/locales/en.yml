@@ -1,0 +1,90 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  user_list: "User List"
+  pm_messages: "PM Messages"
+  delete_post: "Delete Post"
+  home: "Home"
+  post_message: "Post Message"
+  researcher: "Researcher"
+  product_manager: "Product Manager"
+  research_manager: "Research Manager"
+  quick_access: "Quick Access"
+  faq: "FAQ"
+  frequently_asked_questions: "Frequently Asked Questions"
+  researcher_dashboard: "Researcher Dashboard"
+  product_manager_dashboard: "Product Manager Dashboard"
+  research_manager_dashboard: "Research Manager Dashboard"
+  new_coverage_polic: "New Coverage Policy"
+  basic_information: "Basic Information"
+  submit_changes: "Submit Changes"
+  select_retailer: "Select retailer..."
+  users: "Users"
+  admin_dashboard: "Admin Dashboard"
+  research_groups: "Research Groups"
+  shopping_centers: "Shopping Centers"
+  commented: "commented"
+  ago: "%{time} ago"
+  companies: "Companies"
+  reports: "Reports"
+  email: "Email"
+  name: "Name"
+  id: "ID"
+  role: "Role"
+  edit: "Edit"
+  remove: "Remove"
+  become: "Become"
+  unlock: "Unlock"
+  are_you_sure: "Are you sure?"
+  research_manager: "Research Manager: %{research_manager}"
+  add_research_group: "Add Research Group"
+  add_user: "Add User"
+  add_new_comment: "Add a New Comment"
+  add_shopping_center: "Add Shopping Center"
+  begin_comment_here: "Begin comment here..."
+  #ShoppginCenterHelper -> Numeric
+  days_and_hours: "%{days} days and %{hours} hours"
+  hours_and_minutes: "%{hours} hours and %{minutes} minutes"
+  minutes_and_seconds: "%{minutes} minutes and %{seconds} seconds"
+  seconds: "%{seconds} seconds"
+  #ApplicationController
+  access_denied: "Access denied."
+  no_role_assignment: "User has no role assigned, please contact administrator."
+  #ShoppingCentersController
+  shopping_center_created: "Shopping center was created successfully."
+  shopping_center_updated: "Shopping center was updated successfully."
+  #CommentsController
+  comment_created: "Comment was created successfully."
+  commentable_not_found: "Could not find the comments associated with document id %{value}"
+  #CoverageListsController
+  coverage_list_created: "Coverage list was created successfully."
+  coverage_list_updated: "Coverage list was updated successfully."
+  #CoveragePoliciesController
+  coverage_policy_updated: "Coverage policy was updated successfully."
+  coverage_policy_created: "Coverage poilcy was created successfully."
+  #SnapshotsController
+  snapshot_not_found: "Could not find the document associated with this snapshot id %{value}"
+  #UsersController
+  user_created: "User was created successfully."
+  user_updated: "%{user_role} was updated successfully."
+  role_not_defined: "Cannot complete %{action_name} action because :role was not provided in parameter hash."
+  #BugsController
+  bug_created: "Bug was created successfully."
+  #ResearchGroupsController
+  research_group_created: "Research group was created successfully."
+  research_group_updated: "Research group was updated successfully."
+  research_group_deleted: "Research group was deleted successfully."
+  #RetailersController
+  retailer_created: "Retailer was created successfully."
+  retailer_updated: "Retailer was updated successfully."
+  #TasksController
+  task_created: "Task was created successfully."
+  task_updated: "Task was updated successfully."
+  #MessagesController
+  message_created: "Message is created successfully."
+  views:
+    pagination:
+      previous: "&lt; Previous"
+      next: "Next &gt;"
+      truncate: "..."

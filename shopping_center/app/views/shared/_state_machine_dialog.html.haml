@@ -1,0 +1,13 @@
+.section
+  .section-header
+    %h2 Current State
+  .section-body
+    %div= link_to object.state.to_s.titleize, '#', :class => 'btn btn-large btn-disabled, btn-primary'
+
+-if can?(:change_state, object) and not object.state_events.empty?
+  .section
+    .section-header
+      %h2 Actions
+    .section-body
+      - object.state_events.each do |s|
+        %div= link_to object.class.event_translator(s).to_s.titleize, {:action => 'set_state', :id => object.id, :to_state => s}, :class => "btn btn-large btn-disabled #{(s == :scsm_save ? 'save' : '')}"

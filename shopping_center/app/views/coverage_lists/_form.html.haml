@@ -1,0 +1,27 @@
+= form_for @coverage_list, :html => {:class => 'form-horizontal', :id => 'coverage-list-form'} do |f|
+  - if @coverage_list.errors.any?
+    .notifications
+      - @coverage_list.errors.each do |name, msg|
+        %div.alert.fade.in{ "data-alert" => "alert", :class => to_twitter_type(:error) }
+          %a.close{ "data-dismiss" => "alert", :href => "#" } x
+          = "#{name} #{msg}"
+
+  .well
+    %fieldset
+      %legend Basic Information
+      = bootstrapped_field(f, @coverage_list, :text_field, :name)
+      = bootstrapped_field(f, @coverage_list, :number_field, :default_duration)
+
+      .control-group
+        = f.label :research_group, :class => 'control-label'
+        .controls
+          = f.select :research_group, options_for_select([[current_user.research_group.name, current_user.research_group.id]]), {}, disabled: true
+          = f.hidden_field :research_group_id, value: current_user.research_group.id
+
+      .control-group
+        = f.label :assignee, :class => 'control-label'
+        .controls
+          = f.collection_select :assignee_id, current_user.researchers, :id, :name, :prompt => 'Select assignee...', :class => 'assignee-select'
+
+  = f.submit "Submit Changes", :class => "btn btn-primary"
+  = f.submit "Cancel", :class => "btn"

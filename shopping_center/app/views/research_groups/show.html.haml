@@ -1,0 +1,16 @@
+- content_for(:title, @research_group.name.titleize)
+
+.page-header
+  %h1= @research_group.name.titleize
+  %h5= "Research Manager: #{@research_group.research_manager.name}" if not @research_group.research_manager.nil?
+
+%table.table.table-bordered.table-condensed
+  %thead
+    %tr
+      %th name
+      %th email
+  %tbody
+    - @research_group.researchers.each do |r|
+      %tr
+        %td= r.name
+        %td= r.email

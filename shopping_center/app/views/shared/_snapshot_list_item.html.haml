@@ -1,0 +1,12 @@
+%li.history-track
+  %span= "changed #{time_ago_in_words(track[:created_at])} ago"
+  (
+  %span= link_to "view", send("#{object.class.to_s.underscore}_snapshot_path", object, track[:created_at].to_i)
+  )
+  %ul.none
+    - track[:modifications].each do |t|
+      %li
+        %span= t.action.to_s.last == 'e' ? "#{t.action.to_s}d " : "#{t.action.to_s}ed"
+        %span= "#{t.association_chain.last["name"]} "
+        %span.italic= "[#{t.modified.keys.join(', ')}]"
+%hr

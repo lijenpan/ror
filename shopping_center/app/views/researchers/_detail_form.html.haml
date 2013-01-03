@@ -1,0 +1,5 @@
+.well
+  %fieldset
+    %legend Details
+    = bootstrapped_field(f, f.object, :select, :research_group_id, :options_for_select => options_from_collection_for_select(ResearchGroup.all, :id, :name, @user.research_group_id))
+    = bootstrapped_field(f, f.object, :select, :collection_type_id, :options_for_select => options_from_collection_for_select(CollectionType.all, :id, :name, @user.collection_type_id))

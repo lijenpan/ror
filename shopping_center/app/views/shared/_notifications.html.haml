@@ -1,0 +1,5 @@
+.row.notifications
+  - flash.each do |name, msg|
+    %div.alert.fade.in{ "data-alert" => "alert", :class => to_twitter_type(name) }
+      %a.close{ :href => "#", "data-dismiss" => "alert" } x
+      = msg

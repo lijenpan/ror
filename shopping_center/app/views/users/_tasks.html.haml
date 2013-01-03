@@ -1,0 +1,37 @@
+.section
+  - if @tasks.empty?
+    %h3.indent The user has no tasks.
+  - else
+    %h3 Open tasks
+    %table.table.table-bordered.table-condensed
+      %thead
+        %tr
+          %th title
+          %th description
+          %th created by
+          %th age
+      %tbody
+        - @tasks.sort{|m,n| n.created_at <=> m.created_at}.each do |wi|
+          %tr
+            %td= link_to wi.title, wi
+            %td= truncate(wi.description, length: 40, separator: ' ')
+            %td= wi.creator.name
+            %td= wi.created_at.strftime("%Y-%m-%d %H:%M:%S")
+
+.section
+  - unless @completed_tasks.empty?
+    %h3 Past tasks
+    %table.table.table-bordered.table-condensed
+      %thead
+        %tr
+          %th title
+          %th description
+          %th created by
+          %th age
+      %tbody
+        - @completed_tasks.sort{|m,n| n.created_at <=> m.created_at}.each do |wi|
+          %tr
+            %td= link_to wi.title, wi
+            %td= truncate(wi.description, length: 40, separator: ' ')
+            %td= wi.creator.name
+            %td= wi.created_at.strftime("%Y-%m-%d %H:%M:%S")

@@ -1,0 +1,18 @@
+= form_for @user, :html => {:multipart => true, :class => 'form-horizontal', :id => 'user-form'} do |f|
+  - if @user.errors.any?
+    .notifications
+      - @user.errors.each do |name, msg|
+        %div.alert.fade.in{ "data-alert" => "alert", :class => to_twitter_type(:error) }
+          %a.close{ :href => "#" } x
+          = "#{name} #{msg}"
+
+  = render 'general_form', :f => f
+
+  .well
+    %fieldset
+      %legend Password Information
+      = bootstrapped_field(f, f.object, :password_field, :password)
+      = bootstrapped_field(f, f.object, :password_field, :password_confirmation)
+
+  = f.submit "Submit Changes", :class => "btn btn-primary"
+  = f.submit "Cancel", :class => "btn"

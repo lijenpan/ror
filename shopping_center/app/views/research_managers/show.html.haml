@@ -1,0 +1,78 @@
+.section
+  %h2 General Information
+  %ul.none
+    %li
+      %table.table.table-condensed.table-bordered
+        %tbody
+          %tr
+            %td.bold Research Group
+            -# %td= @user.research_group.name
+            -# %td= link_to @user.research_group.name, @user.research_group
+
+.section
+  .tabbable
+    %ul.nav.nav-tabs
+      %li.active= link_to 'tasks', '#tasks', 'data-toggle' => 'tab'
+      %li= link_to 'Shopping Centers', '#shopping-centers', 'data-toggle' => 'tab'
+      %li= link_to 'Researchers', '#researchers', 'data-toggle' => 'tab'
+
+  .tab-content
+    .tab-pane.active#tasks
+      - if @tasks.empty?
+        %h3.indent No tasks assigned or created.
+      - else
+        %h3 tasks
+        %table.table.table-bordered.table-condensed
+          %thead
+            %tr
+              %th title
+              %th description
+              %th created by
+              %th assigned to
+          %tbody
+            - @tasks.sort{|m,n| n.created_at <=> m.created_at}.each do |wi|
+              %tr
+                %td= link_to wi.title, wi
+                %td= truncate(wi.description, length: 40, separator: ' ')
+                %td= wi.creator.name
+                %td= wi.assignee.try(:name) || "Unavailable"
+
+    .tab-pane#shopping-centers
+      .section
+        - if @shopping_centers.empty?
+          %h3 User has no shopping center activity.
+        - else
+          %h3 Shopping Centers
+          %table.table.table-bordered.table-condensed
+            %thead
+              %tr
+                %th shopping center name
+                %th municipality
+                %th governing district
+                %th state
+            %tbody
+              - @shopping_centers.each do |sc|
+                %tr
+                  %td= link_to sc.name, sc
+                  %td= sc.address.municipality
+                  %td= sc.address.governing_district
+                  %td= sc.state.humanize.titleize
+
+    .tab-pane#researchers
+      .section
+        - if @user.researchers.empty?
+          %h3 There are no researchers that report to you.
+        - else
+          %h3 Researchers
+          %table.table.table-bordered.table-condensed
+            %thead
+              %tr
+                %th name
+                %th email
+                %th work_load
+            %tbody
+              - @user.researchers.each do |r|
+                %tr
+                  %td= link_to r.name, r
+                  %td= r.email
+                  %td= r.work_load

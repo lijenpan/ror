@@ -1,0 +1,71 @@
+.navbar.navbar-fixed-top
+  .navbar-inner
+    .container
+      = link_to "ShoppingCenter", "/", :class => 'brand'
+      %ul.nav
+        %li= current_link_to "home", "/home"
+        -if user_signed_in?
+
+          %li= current_link_to "dashboard", active_user_dashboard
+
+          %li.dropdown
+            = link_to "#", :class => 'dropdown-toggle', 'data-toggle' => 'dropdown' do
+              shopping centers
+              %b.caret
+            %ul.dropdown-menu
+              %li
+                = link_to search_shopping_centers_path do
+                  %i.icon-search
+                  search
+              - if can? :create, ShoppingCenter
+                %li
+                  = link_to new_shopping_center_path do
+                    %i.icon-plus
+                    new shopping center
+
+          %li.dropdown
+            = link_to "#", :class => 'dropdown-toggle', 'data-toggle' => 'dropdown' do
+              retailers
+              %b.caret
+            %ul.dropdown-menu
+              %li
+                = link_to search_retailers_path do
+                  %i.icon-search
+                  search
+              - if can? :create, Retailer
+                %li
+                  = link_to new_retailer_path do
+                    %i.icon-plus
+                    new retailer
+
+          - if can? :navigate, Task
+            %li.dropdown
+              = link_to "#", :class => 'dropdown-toggle', 'data-toggle' => 'dropdown' do
+                tasks
+                %b.caret
+              %ul.dropdown-menu
+                - if can? :create, Task
+                  %li
+                    = link_to new_task_path do
+                      %i.icon-plus
+                      new task
+
+          - if can? :navigate, CoverageList
+            %li.dropdown
+              = link_to "#", :class => 'dropdown-toggle', 'data-toggle' => 'dropdown' do
+                coverage lists
+                %b.caret
+              %ul.dropdown-menu
+                - if can? :create, CoverageList
+                  %li
+                    = link_to new_coverage_list_path do
+                      %i.icon-plus
+                      new coverage list
+
+        %li= current_link_to "faq", "/faq"
+
+      %ul.nav.pull-right
+        %li= render "shared/credentials"
+.clear
+
+=render "shared/bug_report", :locals => { :bug => Bug.new }

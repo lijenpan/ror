@@ -1,0 +1,18 @@
+- content_for(:title, "Researcher Dashboard")
+
+.page-header
+  %h1= "#{current_user.role.to_s.humanize.titleize} Dashboard"
+
+.tabbable
+  %ul.nav.nav-tabs
+    %li.active= link_to 'My Tasks', '#tasks', 'data-toggle' => 'tab'
+    %li= link_to 'Shopping Centers', '#shopping-centers', 'data-toggle' => 'tab'
+    %li= link_to 'Retailers', '#retailers', 'data-toggle' => 'tab'
+
+  .tab-content
+    .tab-pane.active#tasks
+      =render "tasks"
+    .tab-pane#shopping-centers
+      =render "shopping_centers"
+    .tab-pane#retailers
+      =render "retailers"

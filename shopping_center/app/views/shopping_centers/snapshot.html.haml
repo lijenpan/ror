@@ -1,0 +1,57 @@
+- content_for(:title, @snapshot.name.titleize)
+
+.page-header
+  %h1
+    = link_to @snapshot.name.titleize, @snapshotable
+    %small= "as of #{@snapshot.created_at.strftime("%Y-%m-%d %H:%M:%S")}"
+
+.well
+  %h1= @snapshot.name.titleize
+  %address
+    %h6= single_line_address(@snapshot.address)
+
+
+  - unless @snapshot.tenants.empty?
+    %h2 Tenants
+    %ul.none
+      %li
+        %table.table.table-condensed.table-bordered
+          %thead
+            %tr
+              %th name
+              %th anchor
+          %tbody
+            - @snapshot.tenants.each do |t|
+              %tr
+                %td= t.name
+                %td= (t.is_anchor ? "Yes" : "No")
+
+  - unless @snapshot.equity_owners.empty?
+    %h2 Equity Owners
+    %ul.none
+      %li
+        %table.table.table-condensed.table-bordered
+          %thead
+            %tr
+              %th name
+              %th ownership stake
+          %tbody
+            - @snapshot.equity_owners.each do |eo|
+              %tr
+                %td= eo.name
+                %td= number_to_percentage(eo.ownership)
+
+  - unless !@snapshot.respond_to?(:assets) || @snapshot.assets.empty?
+    %h2 Documents
+    %ul.none
+      %li
+        %table.table.table-condensed.table-bordered
+          %thead
+            %tr
+              %th file
+              %th date added
+          %tbody
+            - @snapshot.assets.each do |asset|
+              %tr
+                %td= link_to asset.attachment_file_name, asset.attachment.url
+                %td= asset.attachment_updated_at.strftime("%Y-%m-%d")

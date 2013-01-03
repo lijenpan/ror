@@ -1,0 +1,14 @@
+- if f.object.new_record?
+  %td= f.text_field :collected_on, "data-datepicker" => 'datepicker'
+  %td
+    = f.label :harvested, :class => 'checkbox inline' do
+      = f.check_box :harvested, { }, true, false
+      harvested?
+  %td= f.hidden_field :collector, :value => current_user
+- else
+  %td.text-left
+    on
+    = f.object.collected_on.strftime("%Y-%m-%d")
+    collected by
+    %b= "#{f.object.collected_by}"
+  %td= link_to_remove_fields "remove", f

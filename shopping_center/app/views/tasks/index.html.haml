@@ -1,0 +1,26 @@
+.page-header
+  %h1 Listing Tasks
+
+%table.table.table-condensed.table-bordered
+  %thead
+    %tr
+      %th title
+      %th description
+      %th creator
+      %th assignee
+      %th created_on
+      %th state
+  %tbody
+    - @tasks.each do |wi|
+      %tr
+        %td= wi.title
+        %td= wi.description
+        %td= wi.creator.try :name
+        %td= wi.assignee.try :name
+        %td= wi.created_at
+        %td= wi.state.to_s.humanize.titleize
+        %td= link_to 'Show', wi
+        %td= link_to t(:edit), edit_task_path(wi)
+        %td= link_to 'Destroy', wi, confirm: t(:are_you_sure), method: :delete
+
+= link_to 'New Task', new_task_path, :method => :get, :class => 'btn btn-primary'

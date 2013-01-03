@@ -1,0 +1,19 @@
+.nav {
+  .devise {
+    display: block;
+    // padding: 10px 10px 11px;
+    // line-height: 19px;
+
+    i[class^="icon-"] {
+      vertical-align: text-bottom;
+    }
+
+    a {
+      color: #999;
+
+      i {
+        padding-left: 10px;
+      }
+    }
+  }
+}

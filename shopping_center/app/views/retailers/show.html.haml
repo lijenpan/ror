@@ -1,0 +1,102 @@
+- content_for(:title, @retailer.name.titleize)
+
+.page-header
+  .left
+    %h1= @retailer.name
+    %h6= "Last Updated On #{@retailer.updated_at.strftime("%Y-%m-%d %H:%M:%S")}"
+  .right
+    - if not @retailer.closed
+      - if can? :edit, @retailer
+        = link_to edit_retailer_path(@retailer), :class => 'btn btn-inverse' do
+          %i.icon-edit.icon-white
+          edit
+    - if can? :destroy, @retailer
+      = link_to retailer_path(@retailer), :confirm => t(:are_you_sure), :method => :delete, :class => 'btn btn-danger' do
+        %i.icon-trash.icon-white
+        delete
+  .clear
+
+%h2 General Information
+%ul.none
+  %li
+    %table.table.table-condensed.table-bordered
+      %tbody
+        %tr
+          %td.bold Ultimate Parent
+          %td= @retailer.company
+        %tr
+          %td.bold Primary Sector
+          %td= @retailer.primary_sector
+        %tr
+          %td.bold Sectors
+          %td= @retailer.sectors.join ','
+        %tr
+          %td.bold Store Count
+          %td= @retailer.store_count
+        %tr
+          %td.bold Company Website
+          %td= @retailer.company_website
+        %tr
+          %td.bold Store Locator URL
+          %td= @retailer.store_locator_url
+        %tr
+          %td.bold Should Index
+          %td= @retailer.should_index
+
+
+%h2 Collection Information
+%ul.none
+  %li
+    %table.table.table-condensed.table-bordered
+      %tbody
+        %tr
+          %td.bold Initiated By
+          %td= link_to @retailer.initiated_by.name, @retailer.initiated_by
+
+%h2 Coverage Information
+- if @coverage_information.flatten.empty?
+  Retailer is never collected.
+- else
+  %ul.none
+    %li
+      %table.table.table-condensed.table-bordered
+        %thead
+          %tr
+            %th Completed On
+            %th Completed By
+        %tbody
+          - @coverage_information.each do |ci|
+            - ci.each do |closed_at, user_id|
+              %tr
+                %td=closed_at
+                %td=User.find(user_id).name
+
+    %li
+      %table.table.table-condensed.table-bordered
+        %thead
+          %tr
+            %th Snoozed On
+        %tbody
+          - @snoozes.flatten.each do |s|
+            %tr
+              %td=s
+.section
+  .well
+    .pilled-content
+      %ul.nav.nav-pills
+        %li.active= link_to "Collection History", '#collection', 'data-section-id' => 'collection'
+        %li= link_to "Revisions", '#revisions', 'data-section-id' => 'revisions'
+
+      %ul.items.none
+        %li#collection
+          %ul
+            - @retailer.collection_instances.sort{ |m,n| n.collected_on <=> m.collected_on }.each do |ci|
+              %li.text-left
+                Collected on
+                = ci.collected_on.strftime("%Y-%m-%d")
+                by
+                %b= "#{ci.collected_by}"
+
+        %li#revisions
+          %ul.none
+            = render(:partial => 'shared/snapshot_list_item', :collection => @history_tracks, :as => :track, :locals => {:object => @retailer}) || "There is no recorded history."

@@ -1,0 +1,12 @@
+.well
+  - @messages.each do |m|
+    .comment
+      .comment-header
+        .left
+          %strong= User.find(m.author).name
+          posted
+        %em.right= "#{time_ago_in_words(m.created_at)} ago"
+        .clear
+      .comment-body
+        = m.body
+      %br

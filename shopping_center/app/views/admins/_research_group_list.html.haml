@@ -1,0 +1,24 @@
+- @research_groups.each do |rg|
+  .left
+    %h3= "#{rg.name} (#{rg.researchers.count})"
+    %h5= t(:research_manager, :research_manager => rg.research_manager.name) if not rg.research_manager.nil?
+  .right
+    - if can? :edit, rg
+      = link_to edit_research_group_path(rg) do
+        %i.icon-edit
+    - if can? :destroy, rg
+      = link_to research_group_path(rg), :method => :delete, :confirm => t(:are_you_sure) do
+        %i.icon-trash
+  %table.table.table-bordered.table-condensed
+    %thead
+      %tr
+        %th= t(:name)
+        %th= t(:email)
+    %tbody
+      - rg.researchers.each do |r|
+        %tr
+          %td= r.name
+          %td= r.email
+
+- if current_user.is? :admin
+  = button_to t(:add_research_group), new_research_group_path, :method => :get, :class => 'btn btn-primary'

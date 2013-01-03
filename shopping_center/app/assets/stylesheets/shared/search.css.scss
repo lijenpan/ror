@@ -1,0 +1,38 @@
+.form-search {
+  margin-bottom: 0px;
+  input{
+    height: 40px;
+  }
+
+  input[type="text"] {
+    width: 86%;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  input[type="submit"] {
+    width: 70px;
+  }
+}
+
+.search-result {
+  &:hover {
+    background-color: whiteSmoke;
+  }
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  margin-top: 20px;
+
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+
+  border-radius: 14px;
+  -webkit-border-radius: 14px;
+  -moz-border-radius: 14px;
+}
+
+.mid {
+  position: absolute;
+  top: 40%;
+}

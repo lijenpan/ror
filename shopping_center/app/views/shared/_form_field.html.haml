@@ -1,0 +1,13 @@
+- error_class = object.errors.has_key?(field) ? 'error' : ''
+.control-group{:class => (error_class)}
+  - if !opts[:label_text].nil?
+    = builder.label opts[:label_text], :class => 'control-label'
+  - else
+    = builder.label field, :class => 'control-label'
+  .controls
+    - if type.to_s == "select" and !opts[:options_for_select].nil?
+      = builder.send(type, field, opts[:options_for_select])
+    - else
+      = builder.send(type, field)
+    - if object.errors.has_key? field
+      %span.help-inline= object.errors[field].first

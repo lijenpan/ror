@@ -1,0 +1,49 @@
+fieldset {
+  legend {
+    i[class^="icon-"] {
+      // vertical-align: middle;
+    }
+  }
+
+  .control-group {
+    &.table-control-group {
+      margin-left: 160px;
+      margin-right: 40px;
+    }
+
+    table {
+      margin-bottom: 0px;
+
+      width: auto;
+      td {
+        margin: 4px 2px;
+        text-align: left;
+        vertical-align: middle;
+
+        &.text-left { text-align: left; }
+      }
+    }
+
+    input[type="file"] {
+      width: 100%;
+    }
+
+    textarea {
+      width: inherit;
+      resize: none;
+    }
+  }
+}
+
+.best_in_place {
+  padding: .1m;
+  cursor: pointer;
+  -moz-transition: background 0.5s linear;
+  -o-transition: background 0.5s linear;
+  -webkit-transition: background 0.5s linear;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 5px;
+}

@@ -1,0 +1,11 @@
+indexer:
+  cron: "0 0 * * *"
+  class: Indexer
+  queue: file_server
+  description: "This job is scheduled to run daily at midnight."
+
+retailer_collection:
+  cron: "0 0 * * *"
+  class: RetailerToBeCollected
+  queue: file_server
+  description: "This job is scheduled to run weekly at midnight on Sunday."

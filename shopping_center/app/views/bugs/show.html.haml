@@ -1,0 +1,19 @@
+%h3= "#{User.find(@bug.submit_by).name} created this ticket #{@bug.created_at.strftime('on %m/%d/%Y at %I:%M%p')}:"
+
+.well
+  %dl
+    %dt Subject
+    %dd= @bug.subject
+    %dt Url
+    %dd= @bug.url
+    %dt Severity
+    - if @bug.severity == 0
+      %dd Critical
+    - elsif @bug.severity == 1
+      %dd High
+    - elsif @bug.severity == 2
+      %dd Moderate
+    - else
+      %dd Low
+    %dt Description
+    %dd= @bug.description

@@ -1,0 +1,65 @@
+- content_for(:title, @coverage_list.name)
+
+.page-header
+  .left
+    %h1= @coverage_list.name
+  .right
+    - if can? :update, @coverage_list
+      = link_to edit_coverage_list_path(@coverage_list), :class => 'btn btn-inverse' do
+        %i.icon-edit.icon-white
+        edit
+    - if can? :destroy, @coverage_list
+      = link_to coverage_list_path(@coverage_list), :confirm => t(:are_you_sure), :method => :delete, :class => 'btn btn-danger' do
+        %i.icon-trash.icon-white
+        delete
+  .clear
+
+.section
+  .well
+    %h2 Policies
+    - if @coverage_list.policies.empty?
+      %h3
+        No coverage policies have been defined. Click
+        #{link_to 'here', new_coverage_list_coverage_policy_path(@coverage_list)}
+        to add one.
+    - else
+      = form_for @coverage_list, :html => {:multipart => true, :class => 'form-horizontal', :id => 'coverage-list-move'} do |f|
+        %table.table.table-bordered.table-condensed
+          %thead
+            %th retailer
+            %th duration
+            %th
+            %th
+            %th
+          %tbody
+            - @coverage_list.policies.each do |cp|
+              %tr
+                %td= link_to cp.retailer.name, retailer_path(cp.retailer)
+                %td= "#{cp.expiration_duration} minutes"
+                %td= link_to t(:edit), edit_coverage_list_coverage_policy_path(@coverage_list, cp)
+                %td= link_to t(:remove), coverage_list_coverage_policy_path(@coverage_list, cp), :method => :delete, :confirm => t(:are_you_sure)
+                %td= check_box_tag "to_be_moved_coverage_list[#{cp.id}]", '', false
+
+        = link_to 'Add New Policy', new_coverage_list_coverage_policy_path(@coverage_list)
+        | move selected policies to
+        = select_tag "move_to", options_from_collection_for_select(CoverageList.all, :id, :name, @coverage_list.id), {:onchange => "this.form.submit();"}
+
+
+.section
+  .well
+    %h2 Tasks
+    - if @coverage_list.tasks.empty?
+      %h3
+        No coverage tasks are currently assigned to this list.
+    - else
+      %table.table.table-bordered.table-condensed
+        %thead
+          %th title
+          %th created on
+          %th expiration
+        %tbody
+          - @coverage_list.tasks.each do |t|
+            %tr
+              %td= t.title
+              %td= t.created_at.strftime("%Y-%m-%d %H:%M:%S")
+              %td= "#{t.expiration.strftime("%Y-%m-%d %H:%M:%S")}"

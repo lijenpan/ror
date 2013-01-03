@@ -1,0 +1,21 @@
+.section
+  - if @shopping_centers.empty?
+    %h3 There are no shopping centers waiting for your action.
+  - else
+    %h3 My Open Shopping Centers
+    %table.table.table-bordered.table-condensed
+      %thead
+        %tr
+          %th shopping center name
+          %th municipality
+          %th governing district
+          %th state
+          %th researcher
+      %tbody
+        - @shopping_centers.each do |sc|
+          %tr
+            %td= link_to sc.name, sc
+            %td= sc.address.municipality
+            %td= sc.address.governing_district
+            %td= sc.state
+            %td= sc.researcher.name

@@ -1,0 +1,29 @@
+.page-header
+  .left
+    %h1= @task.title
+  .right
+    - if can? :update, @task
+      = link_to edit_task_path(@task), :class => 'btn btn-inverse' do
+        %i.icon-edit.icon-white
+        edit
+    - if can? :destroy, @task
+      = link_to task_path(@task), :confirm => t(:are_you_sure), :method => :delete, :class => 'btn btn-danger' do
+        %i.icon-trash.icon-white
+        delete
+
+  .clear
+
+.section
+  %h3
+    Created by:
+    %small
+      = link_to @task.creator.name, @task.creator if not @task.creator.nil?
+
+.section
+  %h3
+    Assigned to:
+    %small= link_to @task.assignee.name, @task.assignee
+
+.section
+  %h3 Description:
+  %p.indent= @task.description

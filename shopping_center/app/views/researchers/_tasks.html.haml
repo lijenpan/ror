@@ -1,0 +1,50 @@
+.section
+  - if @tasks.empty?
+    %h3.indent There are no items in your todo list. Congratulations.
+  - else
+    %h3 My Open Tasks
+    %table.table.table-bordered.table-condensed
+      %thead
+        %tr
+          %th title
+          %th description
+          %th created by
+          %th due date
+      %tbody
+        - @tasks.each do |t|
+          %tr{ class: t.expired? ? 'expired' : ''}
+            %td
+              - if(t.class == CoverageTask)
+                -# = link_to t.title, coverage_list_coverage_task_path(t.coverage_list, t)
+                = t.title
+              - elsif(t.class == Task)
+                = link_to t.title, t
+            %td= truncate(t.description, length: 40, separator: ' ')
+            %td= t.creator.name unless t.creator.nil?
+            %td
+              = distance_to_expiration_in_words(t.expiration) unless t.due_date.nil?
+            - if t.respond_to? :coverage_list
+              %td= link_to 'complete', coverage_list_coverage_task_close_path(t.coverage_list, t)
+              %td= link_to 'snooze', coverage_list_coverage_task_snooze_path(t.coverage_list, t)
+            - else
+              %td
+              %td
+
+%hr
+.section
+  - unless @completed_tasks.empty?
+    %h3 My Past Tasks
+    %table.table.table-bordered.table-condensed
+      %thead
+        %tr
+          %th title
+          %th description
+          %th created by
+          %th age
+      %tbody
+        - @completed_tasks.sort{|m,n| n.created_at <=> m.created_at}.each do |wi|
+          %tr
+            %td= link_to wi.title, wi
+            %td= truncate(wi.description, length: 40, separator: ' ')
+            %td= wi.creator.name
+            %td= wi.created_at.strftime("%Y-%m-%d %H:%M:%S")

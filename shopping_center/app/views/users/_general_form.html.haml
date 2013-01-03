@@ -1,0 +1,10 @@
+.well
+  %fieldset
+    %legend General Information
+    = bootstrapped_field(f, f.object, :text_field, :first_name)
+    = bootstrapped_field(f, f.object, :text_field, :last_name)
+    = bootstrapped_field(f, f.object, :text_field, :email)
+    .control-group
+      = label :role, "Role", :class => 'control-label'
+      .controls
+        = f.select :role, options_for_select([["Admin", :admin],["Researcher", :researcher],["Research Manager", :research_manager],["Product Manager", :product_manager]], f.object.role), {}, { :disabled => ((controller.action_name != "new") || !can?(:assign_user_role, current_user))  }

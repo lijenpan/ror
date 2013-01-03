@@ -1,0 +1,16 @@
+#state-machine {
+  .section {
+    position: relative;
+    width: 100%;
+    padding-bottom: 10px;
+
+    .section-header {
+    }
+
+    .section-body {
+      a {
+        display: block;
+      }
+    }
+  }
+}

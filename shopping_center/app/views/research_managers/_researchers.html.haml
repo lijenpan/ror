@@ -1,0 +1,17 @@
+.section
+  - if @researchers.empty?
+    %h3 There are no researchers that report to you.
+  - else
+    %h3 My Researchers
+    %table.table.table-bordered.table-condensed
+      %thead
+        %tr
+          %th name
+          %th email
+          %th tasksload
+      %tbody
+        - @researchers.each do |r|
+          %tr
+            %td= link_to r.name, r
+            %td= r.email
+            %td= r.work_load

@@ -1,0 +1,17 @@
+- content_for :content do
+  .row
+    .span9
+      = yield
+    .span3
+      #state-machine= render :partial => 'shared/state_machine_dialog', :locals => { :object => @task }
+
+  -# look at making this a can can ability instead of checking action
+  - if params[:action] == 'show'
+    .row.task-footer
+      #comments.well
+        %h2 Comments
+        %ul
+          = render(:partial => 'comments/show', :collection => @task.comments, :as => :comment, :locals => { :commentable => @task } ) || "There are no comments."
+          %li= render :partial => 'comments/new', :locals => { :commentable => @task }
+
+= render(:template => 'layouts/application')

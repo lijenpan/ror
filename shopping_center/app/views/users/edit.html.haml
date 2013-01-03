@@ -1,0 +1,16 @@
+.page-header
+  %h1= "Edit #{@user.role.to_s.titleize}"
+
+= form_for @user, :html => {:multipart => true, :class => 'form-horizontal'} do |f|
+  - if @user.errors.any?
+    .notifications
+      - @user.errors.each do |name, msg|
+        %div.alert.fade.in{ "data-alert" => "alert", :class => to_twitter_type(:error) }
+          %a.close{ :href => "#" } x
+          = "#{name} #{msg}"
+
+  = render 'general_form', :f => f
+  = render "#{@user.role.to_s.pluralize}/detail_form", :f => f
+  = f.submit "Submit", :class => "btn btn-primary"
+
+= render 'users/change_password',  :user => @user

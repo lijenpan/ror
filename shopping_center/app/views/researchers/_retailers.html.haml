@@ -1,0 +1,19 @@
+.section
+  - if @retailers.empty?
+    %h3 You've never collected any retailers.
+  - else
+    %h3 My Retailers
+    %table.table.table-bordered.table-condensed
+      %thead
+        %tr
+          %th retailer name
+          %th primary sector
+          %th coverage initiated
+          %th store count
+      %tbody
+        - @retailers.each do |r|
+          %tr
+            %td= link_to r.name, r
+            %td= r.primary_sector
+            %td= r.initiated.strftime("%Y-%m-%d")
+            %td= r.store_count

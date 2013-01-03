@@ -1,0 +1,9 @@
+%tr.fields
+  - if f.object.new_record?
+    %td= f.file_field :attachment
+  - else
+    %td.text-left
+      %i.icon-file
+      = link_to f.object.attachment_file_name, f.object.attachment.url
+    %td= link_to_remove_fields "remove", f
+

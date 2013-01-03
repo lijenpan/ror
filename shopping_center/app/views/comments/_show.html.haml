@@ -1,0 +1,23 @@
+%li
+  .comment{ id: "#comment-#{comment.id}" }
+    .comment-header
+      .left
+        %strong= User.find(comment.author).name
+        = t(:commented)
+
+      .right
+        %em= t(:ago, :time => time_ago_in_words(comment.created_at))
+        |
+        - if can? :edit, comment
+          = link_to "#comment-#{comment.id}" do
+            %i.icon-edit{ :id => "edit-comment-#{comment.id}" }
+        - if can? :destroy, comment
+          = link_to send("#{commentable.class.to_s.underscore}_comment_path", commentable, comment), :method => :delete, :confirm => t(:are_you_sure) do
+            %i.icon-trash
+
+      .clear
+    .comment-body
+      - if can? :update, comment
+        = best_in_place comment, :body, :type => :textarea, :path => send("#{commentable.class.to_s.underscore}_comment_path", commentable, comment), :activator => "#edit-comment-#{comment.id}", :display_with => :simple_format
+      - else
+        = comment.body

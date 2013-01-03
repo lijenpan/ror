@@ -1,0 +1,79 @@
+= form_for @shopping_center, :html => {:multipart => true, :class => 'form-horizontal', :id => 'shopping-center-form'} do |f|
+  - if @shopping_center.errors.any?
+    .notifications
+      - @shopping_center.errors.each do |name, msg|
+        %div.alert.fade.in{ "data-alert" => "alert", :class => to_twitter_type(:error) }
+          %a.close{ "data-dismiss" => "alert", :href => "#" } x
+          = "#{name} #{msg}"
+
+  .well
+    %fieldset
+      %legend Shopping Center Information
+      = bootstrapped_field(f, @shopping_center, :text_field, :name)
+      = bootstrapped_field(f, @shopping_center, :text_field, :url)
+
+  .well
+    %fieldset
+      %legend Address Information
+      = f.fields_for :address do |address|
+        = bootstrapped_field(address, @shopping_center.address, :text_field, :street_number)
+        = bootstrapped_field(address, @shopping_center.address, :text_field, :street)
+        = bootstrapped_field(address, @shopping_center.address, :text_field, :municipality)
+        = bootstrapped_field(address, @shopping_center.address, :select, :governing_district, :options_for_select => options_for_select(AddressHelper::States.US, @shopping_center.address.governing_district))
+        = bootstrapped_field(address, @shopping_center.address, :text_field, :postal_code)
+
+  .well
+    %fieldset
+      %legend
+        Anchor Tenants
+        %i.icon-info-sign.anchor-info
+      .control-group.tags
+        = f.label :anchor_tenants, "Add Anchor Tenants"
+        .controls
+          = text_field_tag :anchor_tenants, f.object.anchor_tenants.collect(&:name).join(';'), :id => 'anchor-tenant-input'
+          %ul.anchor-tenant-landing
+
+  .well
+    %fieldset
+      %legend
+        Tenants
+        %i.icon-info-sign.tenant-info
+      .control-group.tags
+        = f.label :tenants, "Add Tenants"
+        .controls
+          = text_field_tag :tenants, f.object.tenants.where(:is_anchor => false).collect(&:name).join(';'), :id => 'tenant-input'
+          %ul.tenant-landing
+
+  .well
+    %fieldset
+      %legend
+        Equity Owner Information
+      .control-group.table-control-group
+        %table.table.table-bordered.table-condensed
+          %thead
+            %tr
+              %th.text-left owner
+              %th.text-left stake
+          %tbody
+            = f.fields_for :equity_owners do |builder|
+              %tr
+                = render 'equity_owner_fields', :f => builder
+        = link_to_add_fields "Add Equity Owner", f, :equity_owners
+
+  .well
+    %fieldset
+      %legend
+        Attachments
+      .control-group.table-control-group
+        %table.table.table-bordered.table-condensed
+          %thead
+            %tr
+              %th.text-left file
+          %tbody
+            = f.fields_for :assets do |builder|
+              %tr
+                = render 'asset_fields', :f => builder
+        = link_to_add_fields "Add Attachment", f, :assets
+
+  = f.submit "Submit Changes", :class => "btn btn-primary"
+  = f.submit "Cancel", :class => "btn"
