@@ -1,0 +1,20 @@
+Assignment:
+
+Implement the methods as specfied in the following class, plus any you need to use to make your life easier.
+Make explicit any dependencies on external libraries so that I can run your code locally.
+
+Los Angeles recently sampled water quality at various sites, and recorded the 
+presence of contaminants. Here's an excerpt of the table:
+(from: http://file.lacounty.gov/bc/q3_2010/cms1_148456.pdf)
+(All chemical values are in mg/L)
+| id | site                                      | chloroform | bromoform | bromodichloromethane | dibromichloromethane |
+|  1 | LA Aquaduct Filteration Plant Effluent    |   .00104   | .00000    |  .00149              |  .00275              |
+|  2 | North Hollywood Pump Station (well blend) |   .00291   | .00487    |  .00547              |  .0109               |
+|  3 | Jensen Plant Effluent                     |   .00065   | .00856    |  .0013               |  .00428              |
+|  4 | Weymouth Plant Effluent                   |   .00971   | .00317    |  .00931              |  .0116               |
+
+These four chemical compounds are collectively regulated by the EPA as Trihalomethanes,
+and their collective concentration cannot exceed .080 mg/L
+
+(from http://water.epa.gov/drink/contaminants/index.cfm#List )
+
