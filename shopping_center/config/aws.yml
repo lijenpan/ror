@@ -1,7 +1,0 @@
-development: &development
-  access_key_id: AKIAITZVR4T7WXHDQKGQ
-  secret_access_key: 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
-test:
-  <<: *development
-production:
-  <<: *development
